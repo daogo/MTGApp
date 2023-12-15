@@ -8,13 +8,11 @@
 import SwiftUI
 
 
-
-
 struct MainListView: View {
     @State private var searchText = ""
     @State private var items = ["Wynik 1", "Wynik 2", "Wynik 3", "Inny Wynik 4"]
 
-    @StateObject private var viewModel = MainListViewModel()
+    @StateObject var viewModel: MainListViewModel
 
 
     var filteredItems: [String] {
@@ -40,10 +38,12 @@ struct MainListView: View {
                 case .loadingSuccess:
                     if let cards = viewModel.cards?.filter({ card in
                         return card.imageUrl != nil
-                    }).prefix(300) {
+                    }) {
                         List {
                             ForEach(cards, id: \.self) { card in
-                                MTGCardRow(card: card)
+                                MTGCardRow(card: card).onTapGesture {
+                                    viewModel.handleRowTap(card)
+                                }
                             }
                         }
                         .listStyle(InsetListStyle())

@@ -17,7 +17,20 @@ enum MainListState {
 class MainListViewModel: ObservableObject {
     @Published var state: MainListState = .loading
     var cards: [Card]?
+    let rowTapped = PassthroughSubject<Card, Never>()
     private var cancellables: Set<AnyCancellable> = []
+
+//    let coordinator: MainCoordinator
+
+//    init(coordinator: MainCoordinator) {
+//        self.coordinator = coordinator
+//    }
+
+
+    func handleRowTap(_ card: Card) {
+        rowTapped.send(card)
+    }
+
     
     func fetchCards() {
         asyncFetchCards()
@@ -30,11 +43,8 @@ class MainListViewModel: ObservableObject {
                     print("Error: \(error)")
                     self?.state = .failure
                 }
-
-
             } receiveValue: { [weak self] cards in
                 self?.cards = cards
-
             }
             .store(in: &cancellables)
 

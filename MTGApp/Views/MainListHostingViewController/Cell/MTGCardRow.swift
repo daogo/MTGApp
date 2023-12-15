@@ -13,7 +13,7 @@ struct MTGCardRow: View {
 
     var body: some View {
         HStack {
-            WebImage(url: URL(string: card.imageUrl!)) { image in
+            WebImage(url: URL(string: card.imageUrl ?? "")) { image in
                 image
                     .resizable()
                     .transition(.fade(duration: 0.5))
