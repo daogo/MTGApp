@@ -59,14 +59,6 @@ class MainListHostingViewController: UIViewController {
             .store(in: &cancellables) // Pamiętaj o utrzymaniu referencji do subskrypcji
     }
 
-
-
-
-//    let swiftUIView = MySwiftUIView()
-//    let myUIKitView = _UIHostingView(rootView: swiftUIView)
-//    view.addSubview(myUIKitView)
-
-
     private func setupConstraints() {
         hostingController.view.translatesAutoresizingMaskIntoConstraints = false
 
